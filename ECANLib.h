@@ -16,6 +16,8 @@ const char
 //////////////////////////////////////////////////////////////////////////
 // CAN_CONFIG_FLAGS
 //////////////////////////////////////////////////////////////////////////
+//CAN_CONFIG_FLAGS constants define flags related to CAN module configuration. 
+//Functions ECANInitialize and ECANSetBaudRate expect one of these (or a bitwise combination) as their argument
 
 const char
     _CAN_CONFIG_DEFAULT         = 0xFF,   // 11111111
@@ -114,6 +116,16 @@ const char
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 
+
+/**
+ * @brief Initializes CAN. All pending transmissions are aborted. Sets all mask registers to 0 to allow all messages.
+ * @param SJW as defined in datasheet 
+ * @param BRP as defined in datasheet 
+ * @param PHSEG1 as defined in datasheet 
+ * @param PHSEG2 as defined in datasheet 
+ * @param PROPSEG as defined in datasheet 
+ * @param CAN_CONFIG_FLAGS 
+ */
 void ECANInitialize(char SJW, char BRP, char PHSEG1, char PHSEG2, char PROPSEG, char CAN_CONFIG_FLAGS);
 
 void ECANSetBaudRate(char SJW, char BRP, char PHSEG1, char PHSEG2, char PROPSEG, char CAN_CONFIG_FLAGS);
@@ -124,7 +136,11 @@ void ECANSetBaudRate(char SJW, char BRP, char PHSEG1, char PHSEG2, char PROPSEG,
      - If set to 0xFF, this is a blocking call – the function won’t “return” until the requested mode is set. 
      - If 0, this is a non-blocking call. It does not verify if CAN module is switched to requested mode or not. 
        Caller must use CANGetOperationMode to verify correct operation mode before performing mode specific operation.
- * @param mode
+ * @param mode Can be 
+ *  There are three modes:
+ *      Mode 1: Fully backward compatible Legacy mode
+ *      Mode 2: Enhanced Legacy mode
+ *      Mode 3: Hardware FIFO mode
  * @param wait_flag 
  */
 void ECANSetOperationMode(unsigned short mode, unsigned short wait_flag);
