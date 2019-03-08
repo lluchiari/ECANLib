@@ -3,13 +3,16 @@
 
 
 
-void ECANSetOperationMode();
 
 void ECANInitialize();
 
+
+void ECANSetOperationMode();
 void ECANSetMask();
 
 void ECANSetTxIdleLevel();
+    
+
 
 void ECANRead();
 
